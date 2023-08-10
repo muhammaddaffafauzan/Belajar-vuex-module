@@ -1,10 +1,8 @@
 <template>
+    <div class="grid grid-cols-4 gap-4">
+<!-- card produk -->
 
-  <div class="grid grid-cols-4 gap-4 py-12">
-    
-    <!-- card produk -->
-
-      <div v-for="product in getProducts" :key="product.id" class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+<div v-for="product in getFilteredProducts" :key="product.id" class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <router-link :to="{ name: 'SingleProduct', params: { id: product.id } }" class="group">
     
         <img class="p-8 rounded-t-lg object-contain w-60 h-80 ml-10" :src="product.image" alt="product image" />
@@ -28,27 +26,24 @@
   </router-link>
 </div>
     <!-- card product -->
-  </div>
+</div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex';
-
+import { mapGetters, mapActions } from "vuex";
+  
 export default {
-    computed: {
-        ...mapGetters('product', ['getProducts']),
-    },
-    methods: {
-        ...mapActions('product', ['fetchProducts']),
-        // getImage(imageURL) {
-        //     return {
-        //         'src': `${imageURL}`,
-        //         'background-size': 'cover',
-        //         'background-position': 'center',
-        //     };
-        // },
-    },
-    created() {
-        this.fetchProducts();
-    },
-}
+  computed: {
+     ...mapGetters("product", ["getProductByCategory"]),
+     getFilteredProducts() {
+        return this.getProductByCategory(this.$route.params.category);
+     },
+  },
+  methods: {
+      ...mapActions("product", ["fetchFilterProduct"]),
+  },
+ created() {
+    this.fetchFilterProduct();
+ },
+
+};
 </script>

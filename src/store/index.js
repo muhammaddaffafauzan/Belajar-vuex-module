@@ -6,6 +6,7 @@ import users from "./modules/users.js"
 import kai from "./modules/kai.js"
 import product from "./modules/product.js"
 import category from "./modules/category.js";
+import auth from "./modules/auth.js";
 const store = createStore({
   state: {
     isLoading: false,
@@ -17,7 +18,8 @@ const store = createStore({
     users,
     kai,
     product,
-    category
+    category,
+    auth
   },
 });
 
